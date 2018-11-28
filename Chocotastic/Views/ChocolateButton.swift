@@ -49,7 +49,7 @@ class ChocolateButton: UIButton {
   }
   
   
-  private var type: ButtonType = .Standard {
+  private var type = ButtonType.Standard {
     didSet {
       updateBackgroundColorForCurrentType()
     }

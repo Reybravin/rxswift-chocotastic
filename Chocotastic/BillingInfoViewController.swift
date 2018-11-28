@@ -78,7 +78,7 @@ class BillingInfoViewController: UIViewController {
       .rx
       .text
       .throttle(throttleInterval, scheduler: MainScheduler.instance)
-      .map { self.validate(cardText: $0) }
+      .map { self.validate(cardText: $0 ?? "") }
     
     creditCardValid
       .subscribe(onNext: { self.creditCardNumberTextField.valid = $0 })
@@ -88,7 +88,7 @@ class BillingInfoViewController: UIViewController {
       .rx
       .text
       .throttle(throttleInterval, scheduler: MainScheduler.instance)
-      .map { self.validate(expirationDateText: $0) }
+      .map { self.validate(expirationDateText: $0 ?? "") }
     
     expirationValid
       .subscribe(onNext: { self.expirationDateTextField.valid = $0 })
@@ -97,7 +97,7 @@ class BillingInfoViewController: UIViewController {
     let cvvValid = cvvTextField
       .rx
       .text
-      .map { self.validate(cvvText: $0) }
+      .map { self.validate(cvvText: $0 ?? "") }
     
     cvvValid
       .subscribe(onNext: { self.cvvTextField.valid = $0 })
@@ -109,7 +109,7 @@ class BillingInfoViewController: UIViewController {
       }
     
     everythingValid
-      .bindTo(purchaseButton.rx.enabled)
+      .bindTo(purchaseButton.rx.isEnabled)
       .addDisposableTo(disposeBag)
   }
   
